@@ -1,7 +1,7 @@
 {
   "name": "Custom React Dashboard",
   "version": "1.0.0",
-  "slug": "custom_react_dashboard",
+  "slug": "ha_react_dashboard",
   "description": "Custom dashboard using React served via Node.js",
   "arch": ["amd64", "aarch64"],
   "startup": "services",
