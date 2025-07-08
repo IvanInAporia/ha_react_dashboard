@@ -1,0 +1,18 @@
+{
+  "name": "Custom React Dashboard",
+  "version": "1.0.0",
+  "slug": "custom_react_dashboard",
+  "description": "Custom dashboard using React served via Node.js",
+  "arch": ["amd64", "aarch64"],
+  "startup": "services",
+  "boot": "auto",
+  "ingress": true,
+  "ingress_port": 3000,
+  "panel_icon": "mdi:monitor-dashboard",
+  "panel_title": "React Dashboard",
+  "ports": {
+    "3000/tcp": null
+  },
+  "map": ["config:ro"],
+  "image": "local/custom_react_dashboard"
+}

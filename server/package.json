@@ -1,0 +1,12 @@
+{
+  "name": "react-dashboard-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "build": "echo 'React build should be placed in dist/'",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
