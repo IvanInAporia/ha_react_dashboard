@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const BASE_URL = window.location.pathname.replace(/\/+$/, '');
-
 const ENTITIES = [
     { id: "sensor.hdc_bed_temp", label: "Bed Temp" },
     { id: "sensor.hdc_bed_humidity", label: "Bed Humidity" },
@@ -11,6 +9,9 @@ const ENTITIES = [
     { id: "sensor.hdc_roof_temp", label: "Roof Temp" },
     { id: "sensor.hdc_roof_humidity", label: "Roof Humidity" }
 ];
+
+const BASE_URL = window.location.origin;
+
 export default function HomeAssistantDashboard() {
         const [states, setStates] = useState([]);
         const [rawResponse, setRawResponse] = useState(null);
