@@ -11,43 +11,34 @@ const ENTITIES = [
   { id: "sensor.hdc_roof_temp", label: "Roof Temp" },
   { id: "sensor.hdc_roof_humidity", label: "Roof Humidity" }
 ];
-
 export default function HomeAssistantDashboard() {
-  const [data, setData] = useState({});
+    const [states, setStates] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/api/states`);
-        const states = response.data;
-        const newData = {};
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/api/states`);
+                setStates(Array.isArray(response.data) ? response.data : []);
+            } catch (error) {
+                console.error("Error fetching data from Home Assistant API", error);
+            }
+        };
 
-        for (const entity of ENTITIES) {
-          const match = states.find((s) => s.entity_id === entity.id);
-          newData[entity.id] = match || { state: "unavailable" };
-        }
+        fetchData();
+        const interval = setInterval(fetchData, 10000);
+        return () => clearInterval(interval);
+    }, []);
 
-        setData(newData);
-      } catch (error) {
-        console.error("Error fetching data from Home Assistant API", error);
-      }
-    };
-
-    fetchData();
-    const interval = setInterval(fetchData, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {ENTITIES.map((entity) => (
-        <div key={entity.id} className="bg-white rounded-2xl shadow p-4">
-          <h2 className="text-xl font-semibold mb-2">{entity.label}</h2>
-          <p className="text-3xl">
-            {data[entity.id]?.state ?? "Loading..."} {data[entity.id]?.attributes?.unit_of_measurement ?? ""}
-          </p>
+    return (
+        <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {states.map((state) => (
+                <div key={state.entity_id} className="bg-white rounded-2xl shadow p-4">
+                    <h2 className="text-xl font-semibold mb-2">{state.entity_id}</h2>
+                    <p className="text-3xl">
+                        {state.state} {state.attributes?.unit_of_measurement ?? ""}
+                    </p>
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 }
