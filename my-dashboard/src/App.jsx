@@ -23,7 +23,7 @@ export default function HomeAssistantDashboard() {
                                     headers: {
                                         // When using ingress, no token is needed if the app is served as an HA panel.
                                         // Axios automatically sends HA session cookies.
-                                        'Content-Type': 'application/json',
+                                        Accept: 'application/json'
                                     },
                                     withCredentials: true // Important: send HA session cookies
                                 });
