@@ -14,5 +14,5 @@
     "3000/tcp": null
   },
   "map": ["config:ro"],
-  "image": "local/custom_react_dashboard"
+  "image": "local/ha_react_dashboard"
 }
