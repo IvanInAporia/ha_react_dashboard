@@ -10,7 +10,8 @@ const ENTITIES = [
     { id: "sensor.hdc_roof_humidity", label: "Roof Humidity" }
 ];
 
-const BASE_URL = window.location.pathname.replace(/\/+$/, '');
+// Use relative path for API requests to avoid incorrect endpoint issues
+const BASE_URL = '';
 
 export default function HomeAssistantDashboard() {
         const [states, setStates] = useState([]);
@@ -21,11 +22,9 @@ export default function HomeAssistantDashboard() {
                         try {
                                 const response = await axios.get(`/api/states`, {
                                     headers: {
-                                        // When using ingress, no token is needed if the app is served as an HA panel.
-                                        // Axios automatically sends HA session cookies.
                                         Accept: 'application/json'
                                     },
-                                    withCredentials: true // Important: send HA session cookies
+                                    withCredentials: true
                                 });
                                 console.log("API response:", response);
                                 setRawResponse(response);
